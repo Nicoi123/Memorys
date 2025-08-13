@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Воспоминания</title>
 <!-- Подключение шрифта с Google Fonts (замените на свой, если нужно) -->
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Francois+One&family=Lilita+One&display=swap" rel="stylesheet">
@@ -77,6 +77,22 @@
 .images-row img {
   opacity: 0;
   animation: fadeIn 1s forwards;
+}
+
+/* Для больших экранов (например, ПК) — в горизонталь */
+.image-container {
+  display: flex;
+  flex-direction: row; /* или оставьте без этого, по умолчанию — в строку */
+  flex-wrap: wrap; /* картинки переносятся, если не помещаются */
+  gap: 10px; /* промежутки между картинками */
+}
+
+/* Для мобильных устройств — в вертикальный ряд */
+@media(max-width: 768px) {
+  .image-container {
+    flex-direction: column; /* картинки идут вертикально */
+    align-items: center; /* при желании, по центру */
+  }
 }
 
 /* Установка задержки для каждого изображения по порядку */
@@ -164,7 +180,7 @@
 
   <!-- Верхние большие картинки -->
   <div class="images-row">
-    <img src="images/n1.jpg" data-link="story1.html" data-password="The black" class="big-img" alt="Она мертва" />
+    <img src="images/n1.jpg" data-link="story1.html" data-password="The black rose" class="big-img" alt="Она мертва" />
     <img src="images/un.jpg" data-link="stories2.html" data-password="пароль2" class="big-img" alt="Большая 2" />
     <img src="images/un.jpg" data-link="stories3.html" data-password="пароль3" class="big-img" alt="Большая 3" />
   </div>
