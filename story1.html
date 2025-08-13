@@ -4,13 +4,15 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The black rose</title>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Comforter+Brush&family=Francois+One&family=Lilita+One&family=Rubik+Mono+One&family=Rubik+Spray+Paint&display=swap" rel="stylesheet">
+<!-- Подключение шрифтов -->
+<link href="https://fonts.googleapis.com/css2?family=Comforter+Brush&display=swap" rel="stylesheet">
 
 <style>
   body {
     margin: 0;
-    height: 100vh;
-    background: url('images/fon.jpg') no-repeat center center/auto;
+    min-height: 100vh;
+    background: url('images/fon.jpg') no-repeat center center;
+    background-size: cover; /* масштабируем фон */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,17 +23,20 @@
   .text-container {
     max-width: 800px;
     width: 100%;
-    text-align: center;
-    font-size: 1.6em; /* средний размер текста */
-    line-height: 1.6;
-    color: #ff0000;
-    background-color: rgba(0,0,0,0.4); /* немного прозрачного фона для читаемости */
+    background-color: rgba(0,0,0,0.4);
     padding: 20px;
     border-radius: 10px;
+    text-align: center;
+    font-size: 1.6em; /* исходный размер текста */
+    line-height: 1.6;
+    color: #ff0000;
   }
 
   /* Адаптивность для мобильных устройств */
   @media(max-width: 768px) {
+    body {
+      padding: 10px; /* чуть уменьшить отступ */
+    }
     .text-container {
       font-size: 1.2em;
       padding: 15px;
@@ -64,12 +69,10 @@
   <p>Тебя больше не существует.</p>
 </div>
 
-<!-- Автоматический скример через 13 секунд -->
+<!-- Скример через 13 секунд -->
 <script>
   setTimeout(() => {
-
-    // Вариант 2: создать модальное окно или анимацию
-    // например, добавим эффект или изображение
+    // Создаем оверлей-скример
     const screamDiv = document.createElement('div');
     screamDiv.style.position = 'fixed';
     screamDiv.style.top = '0';
@@ -85,12 +88,13 @@
 
     document.body.appendChild(screamDiv);
 
-    // Можно автоматически убрать через некоторое время
+    // Убираем через 2 секунды
     setTimeout(() => {
       document.body.removeChild(screamDiv);
-    }, 3000); // убираем через 2 секунды
-  }, 10000); // через 17 секунд
+    }, 2000);
+  }, 13000); // через 13 секунд
 </script>
 
 </body>
 </html>
+
