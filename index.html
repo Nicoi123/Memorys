@@ -3,95 +3,238 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>The black rose</title>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Comforter+Brush&family=Francois+One&family=Lilita+One&family=Rubik+Mono+One&family=Rubik+Spray+Paint&display=swap" rel="stylesheet">
+<title>Воспоминания</title>
+<!-- Подключение шрифта с Google Fonts (замените на свой, если нужно) -->
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Francois+One&family=Lilita+One&display=swap" rel="stylesheet">
 
 <style>
+  /* Вставка собственного шрифта */
   body {
     margin: 0;
-    height: 100vh;
-    background: url('images/fon.jpg') no-repeat center center/cover;
+    font-family: "Lilita One", sans-serif;
+    background: url('images/rose.jpg');
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
-    font-family: "Comforter Brush", cursive;
+    min-height: 100vh;
   }
 
-  .text-container {
-    max-width: 800px;
-    width: 100%;
+  .container {
     text-align: center;
-    font-size: 1.6em; /* средний размер текста */
-    line-height: 1.6;
-    color: #ff0000;
-    background-color: rgba(0,0,0,0.4);
-    padding: 20px;
-    border-radius: 10px;
+    position: relative;
+    max-width: 1200px;
+    padding: 70px;
   }
 
-  @media(max-width: 768px) {
-    .text-container {
-      font-size: 1.2em;
-      padding: 15px;
+  /* Эффект появления текста сверху вниз */
+  .central-text {
+    font-size: 6em;
+    margin-bottom: 90px;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeInDown 2s forwards;
+  }
+
+  @keyframes fadeInDown {
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 
-  @media(max-width: 480px) {
-    .text-container {
-      font-size: 1em;
-      padding: 10px;
-    }
+  /* Общие стили для изображений */
+  .images-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
   }
 
-  /* Стили для всплывающего изображения */
-  #popupImage {
+  /* Размеры изображений и эффекты */
+  .images-row img {
+    width: 250px;
+    height: 150px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    position: relative;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+
+  /* Эффект затемнения при наведении */
+  .images-row img::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 8px;
+    transition: background 0.3s;
+    pointer-events: none;
+  }
+
+/* Базовые стили для всех изображений */
+.images-row img {
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+
+/* Установка задержки для каждого изображения по порядку */
+.images-row img:nth-child(1) {
+  animation-delay: 0s;
+}
+.images-row img:nth-child(2) {
+  animation-delay: 0.5s;
+}
+.images-row img:nth-child(3) {
+  animation-delay: 1s;
+}
+.images-row img:nth-child(4) {
+  animation-delay: 1.5s;
+}
+.images-row img:nth-child(5) {
+  animation-delay: 2s;
+}
+.images-row img:nth-child(6) {
+  animation-delay: 2.5s;
+}
+
+/* Анимация плавного появления */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+  
+  .images-row img:hover::after {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  /* Модальное окно для ввода кода */
+  .modal {
+    display: none;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: none; /* изначально скрыто */
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.897);
+    justify-content: center;
+    align-items: center;
     z-index: 9999;
-    max-width: 80%;
-    max-height: 80%;
-    box-shadow: 0 0 20px rgba(0,0,0,0.8);
+  }
+
+  .modal-content {
+    background: #a80000;
+    padding: 20px 30px;
     border-radius: 10px;
+    max-width: 400px;
+    width: 80%;
+    text-align: center;
+  }
+
+  .modal input[type="password"] {
+    width: 80%;
+    padding: 10px;
+    margin-top: 15px;
+    font-size: 1em;
+    border: 1px solid #d60000;
+    border-radius: 4px;
+  }
+
+  .modal button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    background-color: #ffffff;
+    color: rgb(136, 0, 0);
+    border-radius: 4px;
+    transition: background 0.3s;
+  }
+
+  .modal button:hover {
+    background-color: #e2000086;
   }
 </style>
 </head>
 <body>
 
-<div class="text-container" id="textContainer">
-  <p>13 августа.</p>
-  <p>Вокруг было кучу незнакомых людей. Я их не видел прежде никогда в жизни.</p>
-  <p>Они разговаривали со мной, но я их даже не слышал.</p>
-  <p>Все было таким серым, и лишь цветы были неестественно белыми.</p>
-  <p>Я не помню, как оказался там, как я надел костюм, как мне вручили цветы.</p>
-  <p>Но подняв глаза и посмотрев на ее портрет, меня будто окатило водой.</p>
-  <p>— "Ты правда умерла?"</p>
-  <p>Проснеслась мысль, как ветер в моей голове.</p>
-  <p>Тебя никогда не было рядом со мной как матери, но была как воплощение моих самых худших кошмаров. Ты так жадно цеплялась за жизнь... Казалось, словно это я умру завтрашним днем, а ты останешься жить долго и также незамысловато. Почему сейчас я стою живым перед тобой, с цветами, не характерными тебе?</p>
-  <p>Я встревожен тем, что ты можешь быть где-то рядом. Теперь вне поле моего зрения.</p>
-  <p>Ты не могла стать цветком.</p>
-  <p>Черных роз никогда не существовало.</p>
-  <p>Тебя больше не существует.</p>
+<div class="container">
+  <div class="central-text" id="centralText">MEMORYS</div>
+
+  <!-- Верхние большие картинки -->
+  <div class="images-row">
+    <img src="images/n1.jpg" data-link="story1.html" data-password="The black" class="big-img" alt="Она мертва" />
+    <img src="images/un.jpg" data-link="stories2.html" data-password="пароль2" class="big-img" alt="Большая 2" />
+    <img src="images/un.jpg" data-link="stories3.html" data-password="пароль3" class="big-img" alt="Большая 3" />
+  </div>
+
+  <!-- Нижние одинакового размера картинки -->
+  <div class="images-row" style="margin-top:30px;">
+    <img src="images/un.jpg" data-link="stories4.html" data-password="парольA" class="small-img" alt="Маленькая 1" />
+    <img src="images/un.jpg" data-link="stories5.html" data-password="парольB" class="small-img" alt="Маленькая 2" />
+    <img src="images/un.jpg" data-link="stories6.html" data-password="парольC" class="small-img" alt="Маленькая 3" />
+  </div>
 </div>
 
-<!-- Всплывающее изображение -->
-<img src="your-image.jpg" alt="Скример" id="popupImage" />
+<!-- Модальное окно для ввода кода -->
+<div class="modal" id="codeModal">
+  <div class="modal-content">
+    <h3>Нужен пароль.</h3>
+    <input type="password" id="codeInput" placeholder="Код" />
+    <div style="margin-top:15px;">
+      <button id="submitCode">Подтвердить</button>
+      <button id="cancel" style="background-color:#f44336; margin-left:10px;">Отмена</button>
+    </div>
+  </div>
+</div>
 
-<!-- Скрипт для появления и исчезновения изображения -->
 <script>
-  // Через 13 секунд показываем изображение
-  setTimeout(() => {
-    const img = document.getElementById('popupImage');
-    img.style.display = 'block'; // показываем изображение
+  const modal = document.getElementById('codeModal');
+  const codeInput = document.getElementById('codeInput');
+  let currentLink = '';
+  let currentPassword = '';
 
-    // Через 2 секунды скрываем его
-    setTimeout(() => {
-      img.style.display = 'none';
-    }, 2000);
-  }, 13000);
+  function setupImageClick(img) {
+    img.addEventListener('click', () => {
+      currentLink = img.dataset.link;
+      currentPassword = img.dataset.password;
+      openCodeModal();
+    });
+  }
+
+  function openCodeModal() {
+    modal.style.display = 'flex';
+    codeInput.value = '';
+    codeInput.focus();
+
+    // Обнуляем обработчик, чтобы не накапливать
+    document.getElementById('submitCode').onclick = () => {
+      if (codeInput.value === currentPassword) {
+        window.location.href = currentLink;
+      } else {
+        alert('Неверный код!');
+      }
+    };
+  }
+
+  // Инициализация для всех изображений
+  document.querySelectorAll('.big-img').forEach(img => {
+    setupImageClick(img);
+  });
+  document.querySelectorAll('.small-img').forEach(img => {
+    setupImageClick(img);
+  });
+
+  document.getElementById('cancel').onclick = () => {
+    modal.style.display = 'none';
+  };
+
+  window.onclick = (event) => {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  };
 </script>
 
 </body>
