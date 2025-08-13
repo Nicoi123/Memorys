@@ -1,74 +1,111 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Воспоминания</title>
-<!-- Подключение шрифта с Google Fonts (замените на свой, если нужно) -->
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Francois+One&family=Lilita+One&display=swap" rel="stylesheet">
+/* Общие стили для фона */
+body {
+  margin: 0;
+  font-family: "Lilita One", sans-serif;
+  background: url('images/rose.jpg') no-repeat center center;
+  background-size: cover; /* чтобы фон масштабировался */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
 
-<style>
-  /* Вставка собственного шрифта */
-  body {
-    margin: 0;
-    font-family: "Lilita One", sans-serif;
-    background: url('images/rose.jpg') no-repeat center center; /* Добавлено no-repeat и center center */
-    background-size: cover; /* Изменено на cover для адаптации к разным размерам экрана */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    color: white; /* Добавлен цвет текста */
+/* Контейнер */
+.container {
+  text-align: center;
+  position: relative;
+  max-width: 1200px;
+  padding: 70px;
+  width: 90%; /* чтобы было адаптивно */
+}
+
+/* Центральный текст */
+.central-text {
+  font-size: 6em;
+  margin-bottom: 90px;
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fadeInDown 2s forwards;
+}
+
+/* Анимация */
+@keyframes fadeInDown {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
 
+/* Картинки: гибкая верстка */
+.images-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Размеры изображений */
+.images-row img {
+  width: 100%; /* чтобы адаптироваться */
+  max-width: 250px; /* максимум ширины */
+  height: auto; /* чтобы сохранить пропорции */
+  aspect-ratio: 16 / 9; /* чтобы изображения были однородного соотношения */
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  position: relative;
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+/* Эффект при наведении */
+.images-row img::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0);
+  border-radius: 8px;
+  transition: background 0.3s;
+  pointer-events: none;
+}
+
+.images-row img:hover::after {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Модальное окно — остается без изменений, оно уже адаптивное */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.897);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: #a80000;
+  padding: 20px 30px;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 80%;
+  text-align: center;
+}
+
+/* Мобильные стили */
+@media (max-width: 768px) {
   .container {
-    text-align: center;
-    position: relative;
-    max-width: 800px; /* Ограничение ширины контейнера */
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.5); /* Добавлена полупрозрачная тень */
-    border-radius: 10px; /* Добавлено скругление углов */
+    padding: 30px; /* меньше паддинга на мобильных */
   }
 
-  h1 {
-    font-family: 'Archivo Black', sans-serif; /* Изменение шрифта для заголовка */
-    color: #ff0066; /* Цвет заголовка */
-    margin-bottom: 20px;
+  .central-text {
+    font-size: 3em; /* уменьшить размер текста */
+    margin-bottom: 50px;
   }
 
-  p {
-    line-height: 1.6; /* Увеличение межстрочного интервала */
-    font-size: 1.1rem; /* Увеличение размера шрифта текста */
+  /* Изменение размеров изображений */
+  .images-row img {
+    max-width: 100%; /* чтобы не выходили за контейнер */
   }
-
-  img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 20px auto; /* Центрирование изображения */
-    border-radius: 5px; /* Скругление углов изображения */
-  }
-
-  /* Дополнительный стиль для ссылок, если нужны */
-  a {
-    color: #007bff; /* Цвет ссылок */
-    text-decoration: none; /* Убираем подчеркивание */
-  }
-  a:hover {
-    text-decoration: underline; /* Добавляем подчеркивание при наведении */
-  }
-
-</style>
-</head>
-<body>
-<div class="container">
-  <h1>Воспоминания</h1>
-  <p>Здесь будет текст о ваших воспоминаниях.  Наслаждайтесь приятными моментами!</p>
-
-  <!-- Пример изображения -->
-  <img src="images/example_image.jpg" alt="Пример изображения">
-
-  <p>Дополнительный текст о воспоминаниях. <a href="#">Ссылка на дополнительную информацию</a></p>
-</div>
-</body>
-</html>
