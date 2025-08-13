@@ -1,111 +1,231 @@
-/* Общие стили для фона */
-body {
-  margin: 0;
-  font-family: "Lilita One", sans-serif;
-  background: url('images/rose.jpg') no-repeat center center;
-  background-size: cover; /* чтобы фон масштабировался */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Воспоминания</title>
+<!-- Подключение шрифта с Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Francois+One&family=Lilita+One&display=swap" rel="stylesheet">
 
-/* Контейнер */
-.container {
-  text-align: center;
-  position: relative;
-  max-width: 1200px;
-  padding: 70px;
-  width: 90%; /* чтобы было адаптивно */
-}
-
-/* Центральный текст */
-.central-text {
-  font-size: 6em;
-  margin-bottom: 90px;
-  opacity: 0;
-  transform: translateY(-20px);
-  animation: fadeInDown 2s forwards;
-}
-
-/* Анимация */
-@keyframes fadeInDown {
-  to {
-    opacity: 1;
-    transform: translateY(0);
+<style>
+  /* Общие стили для тела */
+  body {
+    margin: 0;
+    font-family: "Lilita One", sans-serif;
+    background: url('images/rose.jpg') no-repeat center center;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-}
 
-/* Картинки: гибкая верстка */
-.images-row {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-/* Размеры изображений */
-.images-row img {
-  width: 100%; /* чтобы адаптироваться */
-  max-width: 250px; /* максимум ширины */
-  height: auto; /* чтобы сохранить пропорции */
-  aspect-ratio: 16 / 9; /* чтобы изображения были однородного соотношения */
-  object-fit: cover;
-  cursor: pointer;
-  border: 2px solid #ccc;
-  border-radius: 8px;
-  position: relative;
-  transition: transform 0.3s, border-color 0.3s;
-}
-
-/* Эффект при наведении */
-.images-row img::after {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0);
-  border-radius: 8px;
-  transition: background 0.3s;
-  pointer-events: none;
-}
-
-.images-row img:hover::after {
-  background: rgba(0, 0, 0, 0.3);
-}
-
-/* Модальное окно — остается без изменений, оно уже адаптивное */
-.modal {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.897);
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-.modal-content {
-  background: #a80000;
-  padding: 20px 30px;
-  border-radius: 10px;
-  max-width: 400px;
-  width: 80%;
-  text-align: center;
-}
-
-/* Мобильные стили */
-@media (max-width: 768px) {
+  /* Контейнер с ограниченной шириной и внутренним отступом */
   .container {
-    padding: 30px; /* меньше паддинга на мобильных */
+    text-align: center;
+    position: relative;
+    max-width: 1200px;
+    padding: 70px;
+    width: 90%; /* чтобы было немного отступа по бокам на мобильных */
   }
 
+  /* Заголовок "MEMORIES" */
   .central-text {
-    font-size: 3em; /* уменьшить размер текста */
-    margin-bottom: 50px;
+    font-size: 6em;
+    margin-bottom: 90px;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeInDown 2s forwards;
   }
 
-  /* Изменение размеров изображений */
-  .images-row img {
-    max-width: 100%; /* чтобы не выходили за контейнер */
+  @keyframes fadeInDown {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
+
+  /* Обертка для строк изображений */
+  .images-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  /* Стили изображений */
+  .images-row img {
+    width: 250px;
+    height: 150px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    position: relative;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+
+  /* Эффект затемнения при наведении */
+  .images-row img::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 8px;
+    transition: background 0.3s;
+    pointer-events: none;
+  }
+
+  .images-row img:hover::after {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  /* Модальное окно */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.897);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  .modal-content {
+    background: #a80000;
+    padding: 20px 30px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 80%;
+    text-align: center;
+  }
+
+  /* Стили для поля ввода и кнопок */
+  .modal input[type="password"] {
+    width: 80%;
+    padding: 10px;
+    margin-top: 15px;
+    font-size: 1em;
+    border: 1px solid #d60000;
+    border-radius: 4px;
+  }
+
+  .modal button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    background-color: #ffffff;
+    color: rgb(136, 0, 0);
+    border-radius: 4px;
+    transition: background 0.3s;
+  }
+
+  .modal button:hover {
+    background-color: #e2000086;
+  }
+
+  /* Медиазапросы для мобильных устройств */
+  @media(max-width: 768px) {
+    body {
+      /* Можно добавить другие стили для фона, если нужно */
+    }
+
+    /* Уменьшаем размер шрифта для мобильных */
+    .central-text {
+      font-size: 3em;
+      margin-bottom: 50px;
+    }
+
+    /* Размер изображений на мобильных */
+    .images-row img {
+      width: 150px;
+      height: 100px;
+    }
+
+    /* Можно изменить паддинг контейнера */
+    .container {
+      padding: 30px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="central-text" id="centralText">MEMORIES</div>
+
+  <!-- Верхние большие картинки -->
+  <div class="images-row">
+    <img src="images/n1.jpg" data-link="story1.html" data-password="The black rose" class="big-img" alt="Она мертва" />
+    <img src="images/un.jpg" data-link="stories2.html" data-password="пароль2" class="big-img" alt="Большая 2" />
+    <img src="images/un.jpg" data-link="stories3.html" data-password="пароль3" class="big-img" alt="Большая 3" />
+  </div>
+
+  <!-- Нижние маленькие картинки -->
+  <div class="images-row" style="margin-top:30px;">
+    <img src="images/un.jpg" data-link="stories4.html" data-password="парольA" class="small-img" alt="Маленькая 1" />
+    <img src="images/un.jpg" data-link="stories5.html" data-password="парольB" class="small-img" alt="Маленькая 2" />
+    <img src="images/un.jpg" data-link="stories6.html" data-password="парольC" class="small-img" alt="Маленькая 3" />
+  </div>
+</div>
+
+<!-- Модальное окно -->
+<div class="modal" id="codeModal">
+  <div class="modal-content">
+    <h3>Нужен пароль.</h3>
+    <input type="password" id="codeInput" placeholder="Код" />
+    <div style="margin-top:15px;">
+      <button id="submitCode">Подтвердить</button>
+      <button id="cancel" style="background-color:#f44336; margin-left:10px;">Отмена</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('codeModal');
+  const codeInput = document.getElementById('codeInput');
+  let currentLink = '';
+  let currentPassword = '';
+
+  function setupImageClick(img) {
+    img.addEventListener('click', () => {
+      currentLink = img.dataset.link;
+      currentPassword = img.dataset.password;
+      openCodeModal();
+    });
+  }
+
+  function openCodeModal() {
+    modal.style.display = 'flex';
+    codeInput.value = '';
+    codeInput.focus();
+
+    document.getElementById('submitCode').onclick = () => {
+      if (codeInput.value === currentPassword) {
+        window.location.href = currentLink;
+      } else {
+        alert('Неверный код!');
+      }
+    };
+  }
+
+  document.querySelectorAll('.big-img, .small-img').forEach(img => {
+    setupImageClick(img);
+  });
+
+  document.getElementById('cancel').onclick = () => {
+    modal.style.display = 'none';
+  };
+
+  window.onclick = (event) => {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  };
+</script>
+
+</body>
+</html>
