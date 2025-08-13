@@ -4,71 +4,210 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Воспоминания</title>
-<!-- Подключение шрифта с Google Fonts (замените на свой, если нужно) -->
+<!-- Подключение шрифта с Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Francois+One&family=Lilita+One&display=swap" rel="stylesheet">
 
 <style>
-  /* Вставка собственного шрифта */
+  /* Стиль фона с центровкой и масштабированием */
   body {
     margin: 0;
     font-family: "Lilita One", sans-serif;
-    background: url('images/rose.jpg') no-repeat center center; /* Добавлено no-repeat и center center */
-    background-size: cover; /* Изменено на cover для адаптации к разным размерам экрана */
+    background: url('images/rose.jpg') no-repeat center center; /* Центрирование */
+    background-size: contain; /* Масштабирование, чтобы изображение полностью было видно */
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    color: white; /* Добавлен цвет текста */
+    /* Можно убрать flex, чтобы фон не мешал, или оставить для центрирования содержимого */
+    /* Чтобы содержимое было поверх фона, лучше оставить так */
+    color: white; /* Цвет текста по умолчанию */
   }
 
+  /* контейнер с содержимым */
   .container {
     text-align: center;
-    position: relative;
-    max-width: 800px; /* Ограничение ширины контейнера */
+    max-width: 800px;
+    width: 90%; /* чтобы было лучше на мобильных */
     padding: 20px;
-    background-color: rgba(0, 0, 0, 0.5); /* Добавлена полупрозрачная тень */
-    border-radius: 10px; /* Добавлено скругление углов */
+    background-color: rgba(0, 0, 0, 0.5); /* полупрозрачный фон для читаемости */
+    border-radius: 10px;
   }
 
-  h1 {
-    font-family: 'Archivo Black', sans-serif; /* Изменение шрифта для заголовка */
-    color: #ff0066; /* Цвет заголовка */
+  /* Заголовок */
+  .central-text {
+    font-family: 'Archivo Black', sans-serif;
+    color: #ff0066;
+    font-size: 2.5em;
     margin-bottom: 20px;
   }
 
-  p {
-    line-height: 1.6; /* Увеличение межстрочного интервала */
-    font-size: 1.1rem; /* Увеличение размера шрифта текста */
+  /* Эффект появления текста сверху вниз */
+  @keyframes fadeInDown {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
-  img {
-    max-width: 100%;
+  /* Эффект для заголовка */
+  .central-text {
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeInDown 2s forwards;
+  }
+
+  /* Обертка для изображений */
+  .images-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  /* Размер изображений */
+  .images-row img {
+    max-width: 250px;
+    width: 100%;
     height: auto;
-    display: block;
-    margin: 20px auto; /* Центрирование изображения */
-    border-radius: 5px; /* Скругление углов изображения */
+    cursor: pointer;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    transition: transform 0.3s, border-color 0.3s;
   }
 
-  /* Дополнительный стиль для ссылок, если нужны */
-  a {
-    color: #007bff; /* Цвет ссылок */
-    text-decoration: none; /* Убираем подчеркивание */
-  }
-  a:hover {
-    text-decoration: underline; /* Добавляем подчеркивание при наведении */
+  /* Эффект при наведении */
+  .images-row img:hover {
+    transform: scale(1.05);
+    border-color: #ff0066;
   }
 
+  /* Модальное окно для ввода пароля */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.897);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  .modal-content {
+    background: #a80000;
+    padding: 20px 30px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 80%;
+    text-align: center;
+  }
+
+  .modal input[type="password"] {
+    width: 80%;
+    padding: 10px;
+    margin-top: 15px;
+    font-size: 1em;
+    border: 1px solid #d60000;
+    border-radius: 4px;
+  }
+
+  .modal button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    background-color: #ffffff;
+    color: rgb(136, 0, 0);
+    border-radius: 4px;
+    transition: background 0.3s;
+  }
+
+  .modal button:hover {
+    background-color: #e2000086;
+  }
 </style>
 </head>
 <body>
+
 <div class="container">
-  <h1>Воспоминания</h1>
-  <p>Здесь будет текст о ваших воспоминаниях.  Наслаждайтесь приятными моментами!</p>
+  <div class="central-text" id="centralText">MEMORIES</div>
 
-  <!-- Пример изображения -->
-  <img src="images/example_image.jpg" alt="Пример изображения">
+  <!-- Верхние большие картинки -->
+  <div class="images-row">
+    <img src="images/n1.jpg" data-link="story1.html" data-password="The black rose" class="big-img" alt="Она мертва" />
+    <img src="images/un.jpg" data-link="stories2.html" data-password="пароль2" class="big-img" alt="Большая 2" />
+    <img src="images/un.jpg" data-link="stories3.html" data-password="пароль3" class="big-img" alt="Большая 3" />
+  </div>
 
-  <p>Дополнительный текст о воспоминаниях. <a href="#">Ссылка на дополнительную информацию</a></p>
+  <!-- Нижние одинакового размера картинки -->
+  <div class="images-row" style="margin-top:30px;">
+    <img src="images/un.jpg" data-link="stories4.html" data-password="парольA" class="small-img" alt="Маленькая 1" />
+    <img src="images/un.jpg" data-link="stories5.html" data-password="парольB" class="small-img" alt="Маленькая 2" />
+    <img src="images/un.jpg" data-link="stories6.html" data-password="парольC" class="small-img" alt="Маленькая 3" />
+  </div>
 </div>
+
+<!-- Модальное окно для ввода кода -->
+<div class="modal" id="codeModal">
+  <div class="modal-content">
+    <h3>Нужен пароль.</h3>
+    <input type="password" id="codeInput" placeholder="Код" />
+    <div style="margin-top:15px;">
+      <button id="submitCode">Подтвердить</button>
+      <button id="cancel" style="background-color:#f44336; margin-left:10px;">Отмена</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('codeModal');
+  const codeInput = document.getElementById('codeInput');
+  let currentLink = '';
+  let currentPassword = '';
+
+  function setupImageClick(img) {
+    img.addEventListener('click', () => {
+      currentLink = img.dataset.link;
+      currentPassword = img.dataset.password;
+      openCodeModal();
+    });
+  }
+
+  function openCodeModal() {
+    modal.style.display = 'flex';
+    codeInput.value = '';
+    codeInput.focus();
+
+    // Обнуляем обработчик, чтобы не накапливать
+    document.getElementById('submitCode').onclick = () => {
+      if (codeInput.value === currentPassword) {
+        window.location.href = currentLink;
+      } else {
+        alert('Неверный код!');
+      }
+    };
+  }
+
+  // Инициализация для всех изображений
+  document.querySelectorAll('.big-img').forEach(img => {
+    setupImageClick(img);
+  });
+  document.querySelectorAll('.small-img').forEach(img => {
+    setupImageClick(img);
+  });
+
+  document.getElementById('cancel').onclick = () => {
+    modal.style.display = 'none';
+  };
+
+  window.onclick = (event) => {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  };
+</script>
+
 </body>
 </html>
+
